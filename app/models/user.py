@@ -22,7 +22,10 @@ class User:
     def create_user(cls, email, username, password):
 
         try:
-            return current_app.db.users.insert_one({"email": email, "username": username, "password": password})
+            results = current_app.db.users.insert_one({"email": email, "username": username, "password": password})
+            print(results)
+            if results:
+                return results
         except Exception as e:
             print(f"Error creating user: {e}")
             return None
@@ -31,7 +34,7 @@ class User:
     def check_password(cls, email, password):
         try:
             user = cls.get_user_by_email(email)
-            print(user)
+            
             if user:
                 ispasswordmatched = check_password_hash(user["password"], password)
                 if ispasswordmatched:

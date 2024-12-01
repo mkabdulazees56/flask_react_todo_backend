@@ -56,7 +56,7 @@ def update_todo(todo_id):
             return jsonify({"message": "Task is required"}), 400
 
         results = Todo.update_todo(task, todo_id)
-        print(results)
+        
 
         if results > 0:
             return jsonify({"message": "Todo updated successfully"}), 200
